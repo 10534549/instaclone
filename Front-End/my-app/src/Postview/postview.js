@@ -11,10 +11,11 @@ export default function PostView() {
   const [posts , setPosts] = useState([])
   useEffect(() => {
     // GET request using axios inside useEffect React hook
-    axios.get('http://localhost:8000/posts',{headers:{Authorization:" Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzQ5MDU0MTQsImRhdGEiOiI2MTcyN2JmZmY3MjQ1M2QwZDM5MmM2NjIiLCJpYXQiOjE2MzQ5MDE4MTR9.NcTQLuAn2elLArIY8eKur2Z2cm1skAxAqi2E7Kc2JfM"}})
+    axios.get('http://localhost:8000/posts',{headers:{Authorization:" Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzUwNzkxNzAsImRhdGEiOiI2MTc1NDVlNjM3NDE4MWY0Yzk0YWEzYzEiLCJpYXQiOjE2MzUwNzU1NzB9.y27CjaQUHjsQCJGM4M1TU-tORMCzaYfWIxD31_qcBBA"}})
         .then(response =>{
           //console.log(response)
-          setTimeout(()=>{setPosts(response.data)},3000)
+          //setTimeout(()=>{setPosts(response.data)},3000)
+          setPosts(response.data)
           
           console.log(posts)
         });
@@ -30,7 +31,7 @@ export default function PostView() {
       </div>
         {
         posts.map(post => (
-      <Post key={post._id} title= {post.title} body={post.body} image={post.image} id={post._id}></Post>))
+      <Post key={post._id} title= {post.title} body={post.body} location={post.location} image={post.image} id={post._id}></Post>))
       }
         {/* <img src={postviewimg} className="img" alt="Landing image"></img>
           <div className="card-body">

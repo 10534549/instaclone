@@ -37,13 +37,13 @@ function Login() {
             type="text" 
             name="email" 
             onChange={e => setemail(e.target.value)}
-            placeholder="Gmail" 
+            placeholder="Email" 
             class="form-control"
             value={email}/>
 
             <br/>
             <input 
-            type="text" 
+            type="password" 
             name="password" 
             onChange={e => setpassword(e.target.value)} 
             placeholder="Password" 

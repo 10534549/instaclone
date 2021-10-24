@@ -16,7 +16,7 @@ router.post("/login",async function(req,res){
         return res.status(500).json('oh noes!');
     }
     const token = jwt.sign({
-        exp: Math.floor(Date.now() / 1000) + (60 * 60),
+        exp: Math.floor(Date.now() / 1000) + (60 * 60 *60),
         data:user._id
     }, 'Instaclone-456');
 

@@ -42,7 +42,7 @@ function Register() {
 
             <br/>
             <input 
-            type="text" 
+            type="password" 
             name="password" 
             onChange={e => setpassword(e.target.value)} 
             placeholder="Password" 

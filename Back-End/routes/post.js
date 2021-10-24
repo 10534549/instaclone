@@ -9,12 +9,12 @@ const multer = require("multer");
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, "uploads");
+      cb(null, "../Front-End/my-app/public/uploads");
     },
     filename: function (req, file, cb) {
       cb(
         null,
-        file.name + "-" + Date.now()
+        file.fieldname + "-" + Date.now()+path.extname(file.originalname)
       );
     },
   });
@@ -23,8 +23,7 @@ const storage = multer.diskStorage({
   
 router.get("/",async function(req,res){
     try{
-        const posts=await Post.find();
-        console.log(posts)
+        const posts=await Post.find().sort({createdAt:-1});
         return res.json(posts);
     }catch(e){
         res.json({
@@ -36,14 +35,14 @@ router.get("/",async function(req,res){
 
 });
 
-router.post("/",async function(req,res){
-    const {title,body}=req.body;
-    // const image={
-    //     data: fs.readFileSync(path.join(__dirname + "/uploads/" + req.file.filename)),
-    //     contentType: "image/png"
-    // }
+router.post("/",upload.single('image'),async function(req,res){
+    console.log(req.body,req.file)
+    const {title,body,location}=req.body;
+	console.log(req.file.path)
+	var imagePath = req.file.path.replace("..\\Front-End\\my-app\\public\\uploads\\", "");
+    //const image=req.file.fieldname + "-" + Date.now()+path.extname(req.file.originalname)
     const post = await Post.create({
-        title,body,img: req.user
+        title,body,location,image: imagePath
     });
     res.json({
         status:"success",
@@ -55,9 +54,9 @@ router.post("/",async function(req,res){
 
 router.put("/:id",async function(req,res){
     console.log('test',req.params.id)
-    const {title,body}=req.body;
+    const {title,body,location}=req.body;
     console.log("Here->",req.user);
-    const post = await Post.findOneAndUpdate({_id:mongoose.Types.ObjectId(req.params.id)},{$set:{title:title,body:body}});
+    const post = await Post.findOneAndUpdate({_id:mongoose.Types.ObjectId(req.params.id)},{$set:{title:title,body:body,loaction:location}});
     console.log(post);
 
     res.json({

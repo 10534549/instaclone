@@ -7,6 +7,7 @@ function Edit(props) {
 
     const [name , setname] = useState('')
     const [body , setbody] = useState('')
+    const [location , setlocation] = useState('')
     const [image , setimage] = useState(null)
     const history = useHistory();
 
@@ -16,9 +17,10 @@ function Edit(props) {
         .put(`http://localhost:8000/posts/${props.id}`, {
             title:name,
             body:body,
-            image:image
+            location:location
+            // image:image
         
-        },{headers:{Authorization:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzQ5MDU0MTQsImRhdGEiOiI2MTcyN2JmZmY3MjQ1M2QwZDM5MmM2NjIiLCJpYXQiOjE2MzQ5MDE4MTR9.NcTQLuAn2elLArIY8eKur2Z2cm1skAxAqi2E7Kc2JfM"}})
+        },{headers:{Authorization:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzUwNzkxNzAsImRhdGEiOiI2MTc1NDVlNjM3NDE4MWY0Yzk0YWEzYzEiLCJpYXQiOjE2MzUwNzU1NzB9.y27CjaQUHjsQCJGM4M1TU-tORMCzaYfWIxD31_qcBBA"}})
         .then((response) => {
             console.log('test',response)
         });
@@ -29,8 +31,9 @@ function Edit(props) {
     return (
       <div className="App">
         <h2>Edit Your Post</h2>
+        <div class="container">
             <input 
-            type="text" 
+            type="text" class="form-control"
             name="first_name" 
             onChange={e => setname(e.target.value)}
             placeholder="Name" 
@@ -39,24 +42,32 @@ function Edit(props) {
             <br/>
 
             <input 
-            type="text" 
+            type="text" class="form-control"
             name="email" 
             onChange={e => setbody(e.target.value)}
             placeholder="Description" 
             value={body}/>
 
-            <br/>
+            <br />
             <input 
+            type="text" class="form-control"
+            name="place" 
+            onChange={e => setlocation(e.target.value)}
+            placeholder="Location" 
+            value={location}/>
+
+            {/* <input 
             type="file" 
             name="image" 
             onChange={(event) =>{
                 console.log(event.target.files[0])
                 setimage(event.target.files[0])
             } } 
-            placeholder="image"/>
+            placeholder="image"/> */}
 
             <br/>
             <a class="btn btn-success my-3" onClick={submitButton} href="/login/posts" >Edit</a>
+      </div>
       </div>
     );
   }
