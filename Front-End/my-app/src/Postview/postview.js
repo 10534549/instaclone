@@ -1,39 +1,56 @@
-import React,{useEffect,useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './postview.css'
+import React, { useEffect, useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./postview.css";
 // import postviewimg from "../Postview/sunflower.jpg";
-import Post from './post'
+import Post from "./post";
 // import './App.css';
 // import {Component} from 'react';
-import axios from 'axios';
+import axios from "axios";
 
 export default function PostView() {
-  const [posts , setPosts] = useState([])
+  const [posts, setPosts] = useState([]);
   useEffect(() => {
     // GET request using axios inside useEffect React hook
-    axios.get('http://localhost:8000/posts',{headers:{Authorization:" Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzUwNzkxNzAsImRhdGEiOiI2MTc1NDVlNjM3NDE4MWY0Yzk0YWEzYzEiLCJpYXQiOjE2MzUwNzU1NzB9.y27CjaQUHjsQCJGM4M1TU-tORMCzaYfWIxD31_qcBBA"}})
-        .then(response =>{
-          //console.log(response)
-          //setTimeout(()=>{setPosts(response.data)},3000)
-          setPosts(response.data)
-          
-          console.log(posts)
-        });
+    axios
+      .get("http://localhost:8000/posts", {
+        headers: {
+          Authorization:
+            " Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzY0ODA0NjcsImRhdGEiOiI2MTg3NmEwYzFiOWMzM2MyYjk5ODkxY2MiLCJpYXQiOjE2MzYyNjQ0Njd9.xF7QgnBD1M1gQO-jX0r_qJ1Z2gUI4THQs6m9SiSo-oY",
+        },
+      })
+      .then((response) => {
+        //console.log(response)
+        //setTimeout(()=>{setPosts(response.data)},3000)
+        setPosts(response.data);
 
-// empty dependency array means this effect will only run once (like componentDidMount in classes)
-});
+        console.log(posts);
+      });
+
+    // empty dependency array means this effect will only run once (like componentDidMount in classes)
+  });
   return (
     <div class="container">
-    <div className="py-5">
-       <nav className="navbar navbar-light bg-light justify-content-between maintext px-5">
-        <p className="navbar-brand" ><i class="fa fa-user-circle-o" aria-hidden="true"></i>Instaclone</p>           <a href="/login/posts/upload" className="link"><i className="fa fa-camera"></i></a>
-      </nav>
+      <div className="py-5">
+        <nav className="navbar navbar-light bg-light justify-content-between maintext px-5">
+          <p className="navbar-brand">
+            <i class="fa fa-user-circle-o" aria-hidden="true"></i>Instaclone
+          </p>{" "}
+          <a href="/login/posts/upload" className="link">
+            <i className="fa fa-camera"></i>
+          </a>
+        </nav>
       </div>
-        {
-        posts.map(post => (
-      <Post key={post._id} title= {post.title} body={post.body} location={post.location} image={post.image} id={post._id}></Post>))
-      }
-        {/* <img src={postviewimg} className="img" alt="Landing image"></img>
+      {posts.map((post) => (
+        <Post
+          key={post._id}
+          title={post.title}
+          body={post.body}
+          location={post.location}
+          image={post.image}
+          id={post._id}
+        ></Post>
+      ))}
+      {/* <img src={postviewimg} className="img" alt="Landing image"></img>
           <div className="card-body">
             <h5 className="card-title">card title</h5>
             <div className="container">
@@ -49,8 +66,6 @@ export default function PostView() {
             </div>
             <p className="card-text"> kick start your career with a bang</p>
           </div> */}
-        </div>
-
-     
+    </div>
   );
 }
